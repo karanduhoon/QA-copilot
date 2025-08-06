@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Copilot AI - Automated Test Generation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> QA Copilot AI</h1>
+                <p>Transform natural language into automated test assets</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-container">
+                <button class="tab-button active" data-tab="selenium">
+                    <i class="fas fa-code"></i> Selenium Generator
+                </button>
+                <button class="tab-button" data-tab="bdd">
+                    <i class="fas fa-list-check"></i> BDD Generator
+                </button>
+            </div>
+
+            <!-- Selenium Generator Tab -->
+            <div id="selenium-tab" class="tab-content active">
+                <div class="card">
+                    <h2><i class="fas fa-code"></i> Selenium Script Generator</h2>
+                    <p>Describe your test scenario in plain English and get a ready-to-run Selenium test script.</p>
+                    
+                    <form id="selenium-form" class="form">
+                        <div class="form-group">
+                            <label for="selenium-prompt">Test Scenario Description:</label>
+                            <textarea 
+                                id="selenium-prompt" 
+                                name="prompt" 
+                                placeholder="e.g., Test the login page with invalid email format and check for error message."
+                                required
+                            ></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="browser">Browser:</label>
+                                <select id="browser" name="browser">
+                                    <option value="chrome">Chrome</option>
+                                    <option value="firefox">Firefox</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="language">Language:</label>
+                                <select id="language" name="language">
+                                    <option value="python">Python</option>
+                                    <option value="javascript">JavaScript</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-magic"></i> Generate Script
+                        </button>
+                    </form>
+                    
+                    <div id="selenium-result" class="result-container" style="display: none;">
+                        <h3>Generated Script</h3>
+                        <div class="code-container">
+                            <pre id="selenium-code"></pre>
+                            <button class="copy-btn" onclick="copyToClipboard('selenium-code')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="download-btn" onclick="downloadScript('selenium')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BDD Generator Tab -->
+            <div id="bdd-tab" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-list-check"></i> BDD Test Case Generator</h2>
+                    <p>Convert user stories into structured BDD test cases in Gherkin format.</p>
+                    
+                    <form id="bdd-form" class="form">
+                        <div class="form-group">
+                            <label for="bdd-story">User Story or Product Requirement:</label>
+                            <textarea 
+                                id="bdd-story" 
+                                name="user_story" 
+                                placeholder="e.g., As a user, I want to reset my password so I can regain account access if I forget it."
+                                required
+                            ></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="format-style">Output Format:</label>
+                            <select id="format-style" name="format_style">
+                                <option value="gherkin">Gherkin (.feature)</option>
+                                <option value="checklist">Checklist</option>
+                                <option value="plain">Plain Text</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-magic"></i> Generate BDD Cases
+                        </button>
+                    </form>
+                    
+                    <div id="bdd-result" class="result-container" style="display: none;">
+                        <h3>Generated BDD Test Cases</h3>
+                        <div class="code-container">
+                            <pre id="bdd-code"></pre>
+                            <button class="copy-btn" onclick="copyToClipboard('bdd-code')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="download-btn" onclick="downloadScript('bdd')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Generating your test assets...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+</body>
+</html> 
